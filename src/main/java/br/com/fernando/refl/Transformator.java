@@ -24,10 +24,12 @@ public class Transformator {
         return targetClass;
     }
 
+    // metodo de comparação
     private void validate(Field sourceField, Field targetField) {
         if(sourceField.getName().equals(targetField.getName())
                 && sourceField.getType().equals(targetField.getType())) {
-
+            sourceField.setAccessible(true); // acesso as infos privadas
+            targetField.setAccessible(true);
         }
     }
 
