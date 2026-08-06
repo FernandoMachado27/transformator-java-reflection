@@ -2,6 +2,7 @@ package br.com.fernando.refl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 public class Transformator {
 
@@ -16,7 +17,18 @@ public class Transformator {
         Field[] sourcesFields = source.getDeclaredFields();
         Field[] targetFields = target.getDeclaredFields();
 
+        // forEach nas 2 classes para comparar os campos
+        Arrays.stream(sourcesFields).forEach(sourcesField ->
+                Arrays.stream(targetFields).forEach(targetField -> validate(sourcesField, targetField)));
+
         return targetClass;
+    }
+
+    private void validate(Field sourceField, Field targetField) {
+        if(sourceField.getName().equals(targetField.getName())
+                && sourceField.getType().equals(targetField.getType())) {
+
+        }
     }
 
 }
