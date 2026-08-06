@@ -19,7 +19,14 @@ public class Transformator {
 
         // forEach nas 2 classes para comparar os campos
         Arrays.stream(sourcesFields).forEach(sourcesField ->
-                Arrays.stream(targetFields).forEach(targetField -> validate(sourcesField, targetField)));
+                Arrays.stream(targetFields).forEach(targetField -> {
+                    validate(sourcesField, targetField);
+                    try {
+                        targetField.set(targetClass, sourcesField.get(input)); // preenche no targetClass o que está salvo no campo do input
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                }));
 
         return targetClass;
     }
